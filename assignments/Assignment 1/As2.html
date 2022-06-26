@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        console.log("Document is loaded");
+        let arr = [
+          { eno: "Ram", eid: 1, sal: 1000 },
+          { eno: "sham", eid: 2, sal: 2000 },
+          { eno: "bam", eid: 3, sal: 3000 },
+        ];
+        console.log(arr);
+        let count = arr.length;
+        function find(num) {
+          let found = false;
+          //console.log(num);
+          for (let i = 0; i < arr.length; i++) {
+            if (arr[i].eno == num) {
+              found = true;
+              break;
+            }
+          }
+          return found;
+        }
+        let e_name = document.querySelector("#id1");
+        e_name.addEventListener("blur", () => {
+          let num = document.querySelector("#id1").value;
+          let found1 = find(num);
+          //console.log(found1);
+          if (found1) {
+            document.querySelector("#modify").disabled = false;
+            document.querySelector("#remove").disabled = false;
+          } else {
+            document.querySelector("#add").disabled = false;
+          }
+        });
+
+        let add_e = document.querySelector("#add");
+        add_e.addEventListener("click", () => {
+          let eno = document.querySelector("#id1").value;
+          let eid = document.querySelector("#id2").value;
+          let sal = document.querySelector("#id3").value;
+          let obj = { eno, eid, sal };
+          arr[count++] = obj; // you also can use push . faltu dok lau naka.count ++ karun.
+          console.log(arr);
+        });
+
+        let e_modify = document.querySelector("#modify");
+        e_modify.addEventListener("click", () => {
+          let num = document.querySelector("#id1").value;
+          let eno = document.querySelector("#id1").value;
+          let eid = document.querySelector("#id2").value;
+          let sal = document.querySelector("#id3").value;
+          //let obj={eid,sal};
+          for (let i = 0; i < arr.length; i++) {
+            if (arr[i].eno == num) {
+              arr[i].eid = eid;
+              arr[i].sal = sal;
+            }
+          }
+          //arr[count++]=obj;
+          console.log(arr);
+        });
+
+        let e_view = document.querySelector("#view");
+        e_view.addEventListener("click", () => {
+          let y = "";
+          for (let x = 0; x < arr.length; x++) {
+            y =
+              y + " " + arr[x].eno + " " + arr[x].eid + " " + arr[x].sal + " ";
+          }
+          document.querySelector("#p1").innerHTML = y;
+        });
+
+        let e_vid = document.querySelector("#vi");
+        e_vid.addEventListener("click", () => {
+          let v = prompt("Enter eid..");
+          //console.log(v);
+          let y = "";
+          for (let i = 0; i < arr.length; i++) {
+            if (arr[i].eid == v) {
+              //console.log("inside");
+              y =
+                y +
+                " " +
+                arr[i].eno +
+                " " +
+                arr[i].eid +
+                " " +
+                arr[i].sal +
+                " ";
+              document.querySelector("#p1").innerHTML = y;
+              break;
+            }
+          }
+        });
+
+        let e_remove = document.querySelector("#remove");
+        e_remove.addEventListener("click", () => {
+          let num = document.querySelector("#id1").value;
+          let eno = document.querySelector("#id1").value;
+          for (let i = 0; i < arr.length; i++) {
+            if (arr[i].eno == num) {
+              arr.splice(i, 1);
+              break;
+            }
+          }
+
+          console.log(arr);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <br />
+    <input id="id1" type="text" placeholder="ename..." />
+    <br />
+    <input id="id2" type="text" placeholder="eid..." />
+    <br />
+    <input id="id3" type="text" placeholder="sal..." />
+    <br />
+    <br />
+    <button id="add" disabled>ADD</button>
+    <button id="modify" disabled>Modify</button>
+    <button id="remove" disabled>Remove</button>
+    <button id="view">View</button>
+    <button id="vi">view on id</button>
+    <hr />
+    <br />
+    <p id="p1">.</p>
+  </body>
+</html>

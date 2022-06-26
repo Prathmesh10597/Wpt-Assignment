@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>array</title>
+
+    <body>
+      <h1>Demo Add Edit Program</h1>
+      <input id="id1" type="text" placeholder="input.." />
+      <br />
+      <br />
+      <button id="add" disabled>ADD</button>
+      <button id="edit" disabled>Edit</button>
+      <button id="delete" disabled>DELETE</button>
+      <button id="view" disabled>VIEW ALL</button>
+      <button id="odd" disabled>SOP</button>
+      <br />
+      <p id="p1"></p>
+      <p id="p2"></p>
+
+      <script>
+        window.addEventListener("DOMContentLoaded", () => {
+          let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+          console.log("Document load");
+          //let num=document.querySelector("#id1").innerHTML;
+          console.log(num);
+          function find(num) {
+            let result = false;
+            for (let i = 0; i < arr.length; i++) {
+              if (arr[i] == num) {
+                result = true;
+                break;
+              }
+            }
+            return result;
+          }
+
+          let text_b = document.querySelector("#id1");
+          text_b.addEventListener("blur", () => {
+            let num = document.querySelector("#id1").value; //imp
+            let found = find(num);
+            if (found) {
+              document.querySelector("#edit").disabled = false;
+              document.querySelector("#delete").disabled = false;
+              document.querySelector("#view").disabled = false;
+              document.querySelector("#odd").disabled = false;
+            } else {
+              document.querySelector("h1").innerText = "number not present";
+              document.querySelector("#add").disabled = false;
+              document.querySelector("#view").disabled = false;
+              document.querySelector("#odd").disabled = false;
+            }
+          });
+
+          let add_e = document.querySelector("#add");
+          add_e.addEventListener("click", () => {
+            let num = document.querySelector("#id1").value;
+            let found = find(num);
+            if (!found) {
+              arr.push(num);
+              console.log(arr);
+            }
+          });
+
+          let edit_e = document.querySelector("#edit");
+
+          edit_e.addEventListener("click", () => {
+            let oldvalue = document.querySelector("#id1").value;
+            let newvalue = window.prompt();
+
+            edit(oldvalue, newvalue);
+          });
+
+          function edit(oldvalue, newvalue) {
+            let updated = false;
+            for (let i = 0; i < arr.length; i++) {
+              if (arr[i] == oldvalue) {
+                arr[i] = newvalue;
+                updated = true;
+                break;
+              }
+            }
+            console.log(arr);
+            return updated;
+          }
+
+          let delete_e = document.querySelector("#delete");
+          delete_e.addEventListener("click", () => {
+            let d = document.querySelector("#id1").value;
+            for (let i = 0; i < arr.length; i++) {
+              if (arr[i] == d) {
+                arr.splice(i, 1);
+
+                break;
+              }
+            }
+            console.log(arr);
+          });
+
+          let view_e = document.querySelector("#view");
+          view_e.addEventListener("click", () => {
+            document.querySelector("#p1").innerHTML = arr;
+          });
+
+          let odd_e = document.querySelector("#odd");
+          odd_e.addEventListener("click", () => {
+            let p = document.querySelector("#p1");
+            //let num=document.querySelector("#id1").value;
+            let a = "";
+            for (let i = 1; i < arr.length; i++) {
+              if (i % 2 != 0) {
+                a += i;
+              }
+            }
+            document.querySelector("#p2").innerHTML = a;
+          });
+        });
+      </script>
+    </body>
+  </head>
+</html>

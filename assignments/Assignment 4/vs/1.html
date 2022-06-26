@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Q-4</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+      $(() => {
+        $("#pincode").blur(() => {
+          let y = $("#pincode").val();
+
+          let ajaxp = {
+            data: { x: y },
+            url: "http://localhost:9000/getpincode",
+            type: "get",
+            dataType: "json",
+            success: (output) => {
+              if (output.status === true) {
+                $("#msg").text("item details found");
+                console.log(output);
+                $("#area1").val(output.row.area);
+              } else {
+                $("#msg").text("item details not found");
+
+                $("#area1").val("");
+              }
+            },
+            error: (error1) => {
+              console.log("error occured" + error1);
+            },
+          };
+          $.ajax(ajaxp);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <input type="text" id="pincode" placeholder="Enter pincode" />
+    <span id="msg">message display here</span>
+    <br />
+    <br />
+    <input type="text" id="area1" placeholder="Display the area" />
+    <br />
+    <br />
+    <input type="button" value="Add pincode" id="btn1" />
+    <input type="button" value="update pincode" id="btn2" />
+  </body>
+</html>

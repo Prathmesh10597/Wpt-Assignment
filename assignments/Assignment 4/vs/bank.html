@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+      $(() => {
+        $("#accno").blur(() => {
+          let y = $("#accno").val();
+
+          let ajaxparam = {
+            data: { x: y },
+            url: "http://localhost:9000/getbankdetail",
+            type: "get",
+            dataType: "json",
+            success: (output) => {
+              if (output.status == true) {
+                $("#msg").text("item details found");
+
+                $("#bal").val(output.bankdetails.balance);
+              } else {
+                $("#msg").text("item details not found");
+
+                $("#bal").val(" ");
+              }
+            },
+            error: (error) => {
+              console.log("error" + error);
+            },
+          };
+          $.ajax(ajaxparam);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <input type="text" id="accno" placeholder="Enter Account no" />
+    <span id="msg">message </span>
+    <br />
+    <br />
+    <input type="text" id="bal" placeholder="balance" />
+  </body>
+</html>
